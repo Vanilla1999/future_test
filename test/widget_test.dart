@@ -10,21 +10,63 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:future_test/main.dart';
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+Future<void> main() async{
+  _calculate1();
+  _calculate2();
+  _calculate3();
+  print('Fetching user order...');
+}
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+Future<void> test() {
+  return Future(() {
+    print("A");
+    Future(() {
+      print("B");
+      Future(() => print("C"));
+      Future.microtask(() => print("D"));
+      Future(() {
+        print("E");
+        return 5;
+      }).then((value) => print(value)).catchError((error,s){
+        print("error"+error.toString());
+      });
+      print("F");
+    });
+    print("G");
   });
+}
+Future<void> _calculate1() async {
+  // Future(() {
+  //   print("delay");
+  // });
+ delay();
+  print("1");
+}
+Future<void> _calculate2() async {
+  print("2");
+  await Future.delayed(Duration(seconds: 2));
+  print("4");
+}
+Future<void> _calculate3() async {
+  await Future.delayed(Duration(seconds: 1));
+  print("3");
+}
+Future<void> delay() async {
+  print("delay");
+}
+
+Future<void> test1() async{
+
+    print("A");
+    await Future(() {
+      print("B");
+      Future(() => print("C"));
+      Future.microtask(() => print("D"));
+      Future(() {
+        print("E");
+        return 5;
+      }).then((value) => print(value));
+      print("F");
+    });
+    print("G");
 }

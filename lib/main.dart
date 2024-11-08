@@ -130,16 +130,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            CircularProgressIndicator()
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
         final a =  PrimeUsecase();
-          a.init();
-        a.computeTest();
-
+        a.calculateClass();
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
