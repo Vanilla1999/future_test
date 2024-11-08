@@ -47,7 +47,7 @@ class PrimeUsecase {
 Future<void> hobaFuture1() async {
   print('Синхронный код3'); // 3
   print('Синхронный код4'); // 4
-   hobaFuture5();
+ await  hobaFuture5();
   print('Синхронный код6'); // 6
   hobaFuture4(); // hoba4
   print('Синхронный код8'); // 8
@@ -76,8 +76,8 @@ Future<String> hobaFuture4() async {
   return "hobaReturn";
 }
 
-void hobaFuture5() {
-   Future(() => print("hoba5"));
+Future<void> hobaFuture5(){
+  return Future(() => print("hoba5"));
 }
 
 Future<void> _calculate1() async {
